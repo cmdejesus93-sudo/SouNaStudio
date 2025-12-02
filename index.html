@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SouNa Intro</title>
+  <style>
+    :root {
+      --bg: #030e03;          /* nuevo color de fondo */
+      --step-duration: 1200ms;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .logo-scene {
+      position: relative;
+      width: min(80vw, 1200px);
+      aspect-ratio: 1927 / 768; /* proporción aproximada de tu arte */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0.7);
+      animation: zoom-in 2500ms ease-out forwards;
+    }
+
+    .logo-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* CAPAS (se superponen perfecto) */
+    .layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .frame-top-left,
+    .frame-bottom-right {
+      transition: transform var(--step-duration) ease-in-out;
+      transform: translate(0, 0);
+      z-index: 2;
+    }
+
+    .logo-text {
+      z-index: 1;
+      transition: opacity 800ms ease;
+    }
+
+    /* FASE 1: bordes se separan del texto */
+    .phase-1 .frame-top-left {
+      transform: translate(-12%, -18%);
+    }
+    .phase-1 .frame-bottom-right {
+      transform: translate(12%, 18%);
+    }
+
+    /* FASE 2: vuelven a la posición original */
+    .phase-2 .frame-top-left,
+    .phase-2 .frame-bottom-right {
+      transform: translate(0, 0);
+    }
+
+    /* FASE 3: salen de la pantalla */
+    .phase-3 .frame-top-left {
+      transform: translate(-200vw, -200vh);
+    }
+    .phase-3 .frame-bottom-right {
+      transform: translate(200vw, 200vh);
+    }
+
+    /* Cuando todo termina, se apaga el texto */
+    .hide-logo .logo-text {
+      opacity: 0;
+    }
+
+    /* ZOOM INICIAL DEL CONJUNTO */
+    @keyframes zoom-in {
+      0% {
+        transform: scale(0.5);
+      }
+      60% {
+        transform: scale(1.15);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-scene" id="scene">
+    <div class="logo-inner">
+      <!-- Marcos -->
+      <img src="frame-top-left.png" alt="" class="layer frame-top-left" />
+      <img src="frame-bottom-right.png" alt="" class="layer frame-bottom-right" />
+
+      <!-- Texto SouNa -->
+      <img src="souna-text.png" alt="SouNa" class="layer logo-text" />
+    </div>
+  </div>
+
+  <script>
+    const scene = document.getElementById("scene");
+
+    // Cuando termina el zoom, empezamos la coreografía de los bordes:
+    scene.addEventListener("animationend", () => {
+      // Fase 1: bordes se separan del texto
+      scene.classList.add("phase-1");
+
+      // Fase 2: regresan
+      setTimeout(() => {
+        scene.classList.remove("phase-1");
+        scene.classList.add("phase-2");
+      }, 1 * 1200);
+
+      // Fase 3: vuelven a separarse y salen de la pantalla
+      setTimeout(() => {
+        scene.classList.remove("phase-2");
+        scene.classList.add("phase-3");
+      }, 2 * 1200);
+
+      // Apagar el texto cuando los bordes ya se fueron
+      setTimeout(() => {
+        scene.classList.add("hide-logo");
+	window.location.href = "main.html";
+      }, 3 * 1200 + 500);
+    });
+  </script>
+</body>
+</html>
