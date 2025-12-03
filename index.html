@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SouNa</title>
+  <meta name="robots" content="noindex">
+
+  <style>
+    :root {
+      --bg: #000000;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1); /* easing más premium que cualquier ease-out */
+      --duration-move: 1400ms;
+      --duration-out: 1000ms;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    html, body {
+      height: 100dvh;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .logo-scene {
+      width: min(92vw, 1300px);
+      aspect-ratio: 1927 / 768;
+      position: relative;
+      /* Zoom inicial ultra suave */
+      animation: zoomIn 3200ms var(--ease) forwards;
+    }
+
+    .layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+      /* Suavizamos también el filtro de renderizado */
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    /* Transiciones de los marcos con el easing premium */
+    .frame-top-left,
+    .frame-bottom-right {
+      transition: transform var(--duration-move) var(--ease);
+    }
+
+    .logo-text {
+  	z-index: 1;
+ 	 transition: opacity 800ms ease; /* AJUSTA ESTAS CIFRAS A TU GUSTO */
+ 	 transform: translate(-120px,0px);  /* hacia arriba 30px */
+    }
+
+    /* FASES */
+    .separate .frame-top-left     { transform: translate(-16%, -22%) rotate(-4deg); }
+    .separate .frame-bottom-right { transform: translate(16%,  22%) rotate(4deg);  }
+
+    .return .frame-top-left,
+    .return .frame-bottom-right   { transform: translate(0, 0) rotate(0deg); }
+
+    .explode .frame-top-left     { transform: translate(-180vw, -180vh) rotate(-30deg); }
+    .explode .frame-bottom-right { transform: translate(180vw,  180vh) rotate(30deg);   }
+
+    .hide-text .logo-text { opacity: 0; }
+
+    /* Fade out final con velo negro */
+    .fade-out::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      opacity: 0;
+      pointer-events: none;
+      animation: fadeInBlack 1200ms var(--ease) forwards;
+    }
+
+    /* ANIMACIONES */
+    @keyframes zoomIn {
+      0%   { transform: scale(0.5); opacity: 0; filter: blur(4px); }
+      60%  { opacity: 1; filter: blur(0); }
+      80%  { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeInBlack {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-scene" id="scene">
+    <div class="logo-inner">
+      <img src="frame-top-left.png"     alt="" class="layer frame-top-left">
+      <img src="frame-bottom-right.png" alt="" class="layer frame-bottom-right">
+      <img src="souna-text.png"         alt="SouNa" class="layer logo-text">
+    </div>
+  </div>
+
+  <script>
+    const scene = document.getElementById('scene');
+
+    scene.addEventListener('animationend', () => {
+      const tl = scene;
+
+      // 1. Separación suave
+      tl.classList.add('separate');
+      
+      setTimeout(() => {
+        // 2. Vuelven al centro (con un pequeño overshoot visual)
+        tl.classList.remove('separate');
+        tl.classList.add('return');
+      }, 1500);
+
+      setTimeout(() => {
+        // 3. Explosión final ultra dramática
+        tl.classList.remove('return');
+        tl.classList.add('explode');
+        tl.classList.add('hide-text');
+      }, 3000);
+
+      // 4. Fade negro + carga de la web principal
+      setTimeout(() => {
+        document.body.classList.add('fade-out');
+      }, 4200);
+
+      setTimeout(() => {
+        window.location.href = 'main.html';
+      }, 5000); // tiempo total ≈ 5 segundos de pura magia
+    });
+
+    // BONUS: permite saltar la intro con cualquier click o tecla (experiencia móvil/desktop)
+    document.addEventListener('keydown', () => window.location.href = 'index.html');
+    document.addEventListener('click', () => window.location.href = 'index.html');
+    document.addEventListener('touchstart', () => window.location.href = 'index.html');
+  </script>
+</body>
+</html>

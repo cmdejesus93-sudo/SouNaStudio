@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOUNA — Agencia Digital</title>
+    <meta name="description" content="Marketing digital y diseño web moderno para PyMEs que quieren crecer de verdad." />
+
+    <!-- Google Fonts 2025 (mejor rendimiento con &display=swap) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #114741;
+            --color-primary-dark: #114741;
+            --color-bg: #0d0d13;
+            --color-surface: #161622;
+            --color-text: #e0e0ff;
+            --color-text-light: #ffffff;
+            --color-accent: #ffffff;
+            --radius: 1.5rem;
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+ 	    opacity: 0;                          /* empieza invisible */
+   	    transition: opacity 800ms ease;      /* duración y suavidad del fade */
+
+        }
+
+        h1, h2, h3 { font-family: 'League Spartan', sans-serif; font-weight: 700; line-height: 1.2; }
+
+        .container {
+            width: min(90%, 1400px);
+            margin-inline: auto;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 15, 24, 0.70);
+            backdrop-filter: blur(.5px);
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+  display: block;
+  width: 140px;          /* ajusta el tamaño que quieras */
+  height: auto;
+  line-height: normal;   /* quita el line-height del texto anterior */
+}
+
+.logo-img {
+  width: 100%;
+  height: auto;
+  transition: all 0.4s var(--ease);
+}
+
+.logo-img:hover {
+  filter: brightness(0) invert(1) hue-rotate(90deg); /* opcional: leve color morado al hover */
+  transform: scale(1.05);
+}
+
+/* En móvil lo hacemos un poco más pequeño */
+@media (max-width: 768px) {
+  .logo { width: 110px; }
+}
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--color-text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: var(--color-accent);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #ffe998; }
+
+        /* HERO PREMIUM 2025 */
+.hero-premium {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.hero-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) brightness(0.7);
+  transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-premium:hover .hero-bg-image img {
+  transform: scale(1.05);
+}
+
+/* Overlay oscuro sutil */
+.hero-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(15,15,24,0.8) 100%);
+  z-index: -1;
+}
+
+
+/* Texto hero */
+.hero-text-premium {
+  max-width: 900px;
+  color: white;
+}
+
+.hero-text-premium h1 {
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 800;
+  line-height: 0.9;
+  margin-bottom: 1.5rem;
+  letter-spacing: -2px;
+}
+
+.line { display: block; }
+.highlight { 
+  background: linear-gradient(90deg, #ffe998, #57370d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-top: -10;
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  opacity: 0.9;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.btn-outline {
+  display: inline-block;
+  width: fit-content;
+  margin: 2rem auto 0 auto;
+  padding: 1.2rem 2.8rem;
+  background: transparent;
+  border: 2px solid var(--gold);        /* dorado */
+  color: var(--gold);
+  font-family: 'PP Neue Machina', 'Inter', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.5s var(--ease);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+
+}
+
+/* Efecto brillo al hover */
+.contact-form button::before,
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2));
+  transition: 0.8s;
+}
+
+.contact-form button:hover::before,
+.btn-outline:hover::before {
+  left: 100%;
+}
+
+/* Hover principal */
+.contact-form button:hover,
+.btn-outline:hover {
+  background: var(--gold);
+  color: var(--bg);
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px rgba(212, 175, 55, 0.4);
+}
+
+
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 50px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 50px;
+}
+
+.scroll-indicator::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 6px;
+  height: 12px;
+  background: white;
+  border-radius: 10px;
+  transform: translateX(-50%);
+  animation: scroll 2s infinite;
+}
+
+@keyframes scroll {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(15px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-menu { display: none; } /* luego puedes hacer menú hamburguesa si quieres */
+  .hero-text-premium h1 { font-size: 4.5rem; }
+}
+        /* SECCIONES GENERALES */
+        section {
+            padding: 8rem 0;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #ffe998, #57370d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .services-collection { padding: 12rem 0; background: var(--bg); }
+
+.services-header { text-align: center; margin-bottom: 7rem; }
+.services-subtitle { font-size: 1.1rem; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
+.services-title { font-size: clamp(4.5rem, 11vw, 10rem); color: white; line-height: 0.9; font-weight: 900; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  grid-template-areas:
+    "a a a a a a b b b c c c"
+    "d d d d d d d d d d d d";
+}
+
+/* Tarjetas base */
+.service-card-large, .service-card-small {
+  position: relative;
+  border-radius: 34px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card-large { aspect-ratio: 2.3 / 1; }
+.service-card-small { aspect-ratio: 1.4 / 1; }
+
+/* Imagen de fondo */
+.bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Overlay verde oscuro opaco (el truco clave) */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,14,10,0.92) 0%, rgba(10,14,10,0.75) 50%, rgba(10,14,10,0.4) 100%);
+  z-index: 1;
+  transition: opacity 0.8s ease;
+}
+
+/* Contenido */
+.service-content {
+  position: absolute;
+  bottom: 0; left: 0;
+  padding: 3rem;
+  z-index: 2;
+  color: white;
+  transform: translateY(15px);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-content h3 {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.service-card-small h3 { font-size: 2.8rem; }
+
+.service-content p {
+  font-size: 1.15rem;
+  max-width: 80%;
+  opacity: 0.95;
+  margin-bottom: 1.5rem;
+}
+
+/* Flecha dorada */
+.service-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+  font-size: 2rem;
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* HOVER EFECTOS */
+.service-card-large:hover .bg-image,
+.service-card-small:hover .bg-image {
+  transform: scale(1.06);
+}
+
+.service-card-large:hover .overlay,
+.service-card-small:hover .overlay {
+  opacity: 0.85; /* se aclara un poco */
+}
+
+.service-card-large:hover .service-content,
+.service-card-small:hover .service-content {
+  transform: translateY(0);
+}
+
+.service-card-large:hover .service-arrow,
+.service-card-small:hover .service-arrow {
+  background: var(--gold);
+  color: var(--bg);
+  transform: scale(1.15) rotate(8deg);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: "a" "b" "c" "d";
+    gap: 3rem;
+  }
+  .service-card-large, .service-card-small { aspect-ratio: 1.6 / 1; }
+  .service-content h3 { font-size: 3rem; }
+  .service-card-small h3 { font-size: 2.6rem; }
+}
+
+        .placeholder-img.small { height: 80px; }
+        /* SOBRE NOSOTROS */
+
+       .about-text-centered {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 5rem auto;
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.about-text-centered .lead {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: rgb(214, 203, 239);
+}
+
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: .5rem;
+  justify-content: center;
+}
+
+/* Tarjetas (mismo estilo premium de antes, solo lo repito por si lo habías quitado) */
+.founder-card {
+  background-color: #c3c3c3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid rgba(94, 23, 235, 0.2);
+  text-align: center;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.founder-card:hover {
+  transform: translateY(-16px);
+  box-shadow: 0 25px 60px #3e3b33;
+  border-color: var(--color-primary);
+}
+
+/* FOTO CIRCULAR */
+.founder-photo {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #1b2c18;
+  margin-bottom: 1.8rem;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.founder-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-card:hover .founder-photo {
+  border-color: #b39339;
+  transform: scale(1.05);
+  box-shadow: 0 25px 60px #ffe998;
+}
+
+.founder-card:hover .founder-photo img {
+  transform: scale(1.15);
+}
+
+/* TEXTO PERFECTAMENTE CENTRADO */
+.founder-info h3 {
+  font-size: 1.7rem;
+  margin: 0 0 0.5rem 0;
+  color: rgb(0, 0, 0);
+}
+
+.founder-info .role {
+  color: #0c342f;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0;
+  letter-spacing: 0.8px;
+}
+
+.founder-info .bio {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #000000;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .founder-photo { width: 200px; height: 200px; }
+  .founder-card { padding: 2rem 1.5rem; }
+}
+        /* CONTACTO */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        input, textarea {
+            padding: 1rem 1.5rem;
+            background-color: #c3c3c3;
+            border: 1px solid #ffe998;
+            border-radius: 1rem;
+            color: white;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ffe998;
+            box-shadow: 0 0 0 4px rgba(94, 23, 235, 0.2);
+        }
+
+        textarea { min-height: 150px; resize: vertical; }
+
+        /* BOTÓN ENVIAR MENSAJE – ESTILO PREMIUM 2025 */
+.contact-form button,
+.btn-primary {
+  display: block;
+  width: fit-content;
+  margin: 2rem auto 0 auto;
+  padding: 1.4rem 4rem;
+  background: transparent;
+  border: 2px solid var(--gold);        /* dorado */
+  color: var(--gold);
+  font-family: 'PP Neue Machina', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+}
+
+/* Efecto brillo al hover */
+.contact-form button::before,
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2));
+  transition: 0.8s;
+}
+
+.contact-form button:hover::before,
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* Hover principal */
+.contact-form button:hover,
+.btn-primary:hover {
+  background: var(--gold);
+  color: var(--bg);
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px rgba(212, 175, 55, 0.4);
+}
+
+/* Focus para accesibilidad */
+.contact-form button:focus-visible,
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.3);
+}
+
+/* Responsive – móvil */
+@media (max-width: 640px) {
+  .contact-form button,
+  .btn-primary {
+    width: 100%;
+    padding: 1.4rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+        
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.footer-text {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 2.2rem;
+}
+
+.social-icons a {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,233,152,0.08);
+  transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.social-icons a:hover {
+  background: #c3c3c3;
+  transform: translateY(-6px);
+}
+
+.social-icons svg {
+  width: 19px;
+  height: 19px;
+  stroke: #ffffff;
+  transition: stroke 0.4s ease;
+}
+
+.social-icons a:hover svg {
+  stroke: #0a0e0a;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .social-icons { gap: 1.8rem; }
+  .social-icons a { width: 42px; height: 42px; }
+}
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header class="navbar" id="navbar">
+        <div class="container">
+            <a href="#hero" class="logo">
+  <img src="SouNa Logo 2.0_NB.png" alt="SOUNA - Agencia Digital" class="logo-img">
+</a>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#portfolio">Portafolio</a></li>
+                    <li><a href="#about">Sobre Nosotros</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <!-- NUEVO HERO PREMIUM 2025 (estilo Hi-Rise) -->
+<section id="hero" class="hero-premium">
+
+  <!-- Imagen de fondo full-bleed en B&N -->
+  <div class="hero-bg-image">
+    <img src="headerbackground.svg" alt="Arquitectura moderna" loading="eager">
+  </div>
+
+  <div class="container hero-content-premium">
+
+    </header>
+
+    <!-- Texto grande minimalista -->
+    <div class="hero-text-premium">
+      <h1>
+        <span class="line">Construimos tu presencia digital</span>
+        <span class="line highlight">sin límites.</span><br>
+      </h1>
+      <p class="subtitle">Marketing + Web Design de alto impacto para PyMEs que quieren dominar su sector.</p>
+      <a href="#contact" class="btn-outline">Cotizar proyecto →</a>
+    </div>
+
+    <!-- Scroll indicator (opcional pero queda brutal) -->
+    <div class="scroll-indicator">
+      <span></span>
+    </div>
+  </div>
+</section>
+
+    <!-- SECCIÓN SERVICIOS – CON FONDO OPACO PREMIUM -->
+<section id="services" class="services-collection">
+  <div class="container">
+
+    <div class="services-header">
+      <p class="services-subtitle">Soluciones digitales de alto impacto</p>
+      <h2 class="services-title">Nuestros Servicios</h2>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Marketing Digital -->
+      <div class="service-card-large" style="grid-area: a;">
+        <img src="6e9be47f42ded55d0a69c26c2fc88e90.jpg" alt="Marketing Digital" class="bg-image">
+        <div class="overlay"></div>
+        <div class="service-content">
+          <h3>Marketing Digital</h3>
+          <p>Estrategia completa: redes sociales, anuncios, contenido y growth hacking que convierte.</p>
+          <a href="#contact" class="service-arrow">→</a>
+        </div>
+      </div>
+
+      
+      <div class="service-card-small" style="grid-area: b;">
+        <img src="ecommerce.jpg" alt="Diseño Web" class="bg-image">
+        <div class="overlay"></div>
+        <div class="service-content">
+          <h3>E-commerce</h3>
+          <a href="#contact" class="service-arrow">→</a>
+        </div>
+      </div>
+
+      <div class="service-card-small" style="grid-area: c;">
+        <img src="5ef21fbc9890468fdcdbad3ee3aa2465.jpg" alt="E-commerce" class="bg-image">
+        <div class="overlay"></div>
+        <div class="service-content">
+          <h3>SEO & Performance</h3>
+          <a href="#contact" class="service-arrow">→</a>
+        </div>
+      </div>
+
+      <div class="service-card-large" style="grid-area: d;">
+        <img src="webdesign.jpg" alt="SEO" class="bg-image">
+        <div class="overlay"></div>
+        <div class="service-content">
+          <h3>Diseño Web</h3>
+          <p>Webs modernas, rápidas y optimizadas para convertir visitantes en clientes fieles.</p>
+          <a href="#contact" class="service-arrow">→</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- SOBRE NOSOTROS – TEXTO ARRIBA + FUNDADORES ABAJO -->
+<section id="about" class="about">
+  <div class="container">
+
+    <h2>Sobre Nosotros</h2>
+
+    <!-- Texto general centrado arriba -->
+    <div class="about-text-centered">
+      <p class="lead">
+        Somos un estudio híbrido que combina estrategia de marketing digital,
+        diseño web moderno y desarrollo eficiente para elevar marcas pequeñas y medianas al siguiente nivel.
+      </p>
+      <p style="margin-top: 1.2rem; opacity: 0.9;">
+        Cada proyecto lo lideramos personalmente <strong>Cristian</strong> y <strong>Driel</strong> 
+        para garantizar calidad, velocidad y resultados reales.
+      </p>
+    </div>
+
+    <!-- Tarjetas de fundadores debajo -->
+    <div class="founders-grid">
+
+      <!-- Cristian Martínez -->
+      <div class="founder-card">
+        <div class="founder-photo">
+          <img src="Gemini_Generated_Image_xoep7qxoep7qxoep.png" alt="Cristian Martínez - Co-fundador SOUNA" loading="lazy">
+        </div>
+        <div class="founder-info">
+          <h3>Cristian Martínez</h3>
+          <p class="role">Co-fundador & Desarrollador Full Stack</p>
+          <p class="bio">Experto en performance, arquitectura web moderna y automatizaciones.</p>
+        </div>
+      </div>
+
+      <!-- Driel Medina Souza -->
+      <div class="founder-card">
+        <div class="founder-photo">
+          <img src="Gemini_Generated_Image_xl5cxrxl5cxrxl5c (1).png" alt="Driel Medina Souza - Co-fundador SOUNA" loading="lazy">
+        </div>
+        <div class="founder-info">
+          <h3>Driel Medina Souza</h3>
+          <p class="role">Co-fundador & Director Creativo</p>
+          <p class="bio">Especialista en branding, UI/UX y dirección de arte digital.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- CONTACTO -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Empecemos tu proyecto</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Nombre completo" required />
+                <input type="email" placeholder="Email" required />
+                <input type="text" placeholder="Tipo de servicio (ej. Página web + Ads)" />
+                <textarea placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+                <button type="submit" class="btn-primary">Enviar mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER CON REDES SOCIALES DORADAS -->
+<footer class="footer">
+  <div class="container footer-container">
+
+    
+
+    <!-- Iconos de redes sociales -->
+    <div class="social-icons">
+      <a href="https://instagram.com/tuusuario" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffe998" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://facebook.com/tuusuario" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffe998" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://youtube.com/@tuusuario" target="_blank" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffe998" stroke-width="1.6"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 12.42a29 29 0 0 0 .46 6.16a2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2a29 29 0 0 0 .46-6.16a29 29 0 0 0-.46-6.16z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+      </a>
+      <a href="https://behance.net/tuusuario" target="_blank" aria-label="Behance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffe998" stroke-width="1.6"><path d="M15 7h6M4.58 12.5h6.84a2.5 2.5 0 1 0 0-5H7.58a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h4.92a3.5 3.5 0 0 0 0-7"/><ellipse cx="16" cy="16" rx="5" ry="3"/></svg>
+      </a>
+    </div>
+    <!-- Texto copyright -->
+    <p class="footer-text">© 2025 SOUNA — Agencia Digital. Todos los derechos reservados.</p>
+
+  </div>
+</footer>
+
+    <script>
+ const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');   // se activa el estilo que preguntas
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+    </script>
+    <script>
+	window.addEventListener("load", () => {
+    // Cuando la página haya cargado, hacemos fade-in
+	document.body.style.opacity = "1";
+  });
+    </script>
+</body>
+</html>
