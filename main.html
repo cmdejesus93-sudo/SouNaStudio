@@ -816,7 +816,7 @@
 </section>
 
     <!-- CONTACTO -->
-    <section id="contact" class="contact">
+  <!--  <section id="contact" class="contact">
         <div class="container">
             <h2>Empecemos tu proyecto</h2>
             <form class="contact-form">
@@ -827,7 +827,40 @@
                 <button type="submit" class="btn-primary">Enviar mensaje</button>
             </form>
         </div>
-    </section>
+    </section> -->
+<section id="contact" class="contact">
+	<div class="container">
+        <h2>Empecemos tu proyecto</h2>
+		<form 
+ 		  class="contact-form"
+  		  action="https://script.google.com/macros/s/AKfycbwybWVpDAlWjvD-uJoC4Cn0-u3lJujVcBPxDjhdGUf_hPhL9Y1stbEUFFO1qxH10ayA0A/exec"
+ 		  method="POST"
+		>
+  		<input 
+   		   type="text" 
+    	   name="name" 
+           placeholder="Nombre Completo" 
+           required
+        >
+ 	    <input 
+   		   type="email" 
+    	   name="email" 
+    	   placeholder="Email" 
+    	   required
+  		>
+ 	    <input type="text" name="services" placeholder="Tipo de servicio (ej. Página web + Ads)" />
+
+       <textarea 
+   		 name="message" 
+    	 placeholder="Cuéntanos sobre tu proyecto..."
+   		 required
+  	   ></textarea>
+
+        <button type="submit" class="btn-primary">Enviar mensaje</button>
+	</form>
+
+	</div>
+</section> 
 
     <!-- FOOTER CON REDES SOCIALES DORADAS -->
 <footer class="footer">
@@ -874,4 +907,5 @@ window.addEventListener('scroll', () => {
   });
     </script>
 </body>
+
 </html>
