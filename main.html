@@ -829,38 +829,49 @@
         </div>
     </section> -->
 <section id="contact" class="contact">
-	<div class="container">
-        <h2>Empecemos tu proyecto</h2>
-		<form 
- 		  class="contact-form"
-  		  action="https://script.google.com/macros/s/AKfycbwybWVpDAlWjvD-uJoC4Cn0-u3lJujVcBPxDjhdGUf_hPhL9Y1stbEUFFO1qxH10ayA0A/exec"
- 		  method="POST"
-		>
-  		<input 
-   		   type="text" 
-    	   name="name" 
-           placeholder="Nombre Completo" 
-           required
-        >
- 	    <input 
-   		   type="email" 
-    	   name="email" 
-    	   placeholder="Email" 
-    	   required
-  		>
- 	    <input type="text" name="services" placeholder="Tipo de servicio (ej. Página web + Ads)" />
+  <div class="container">
+    <h2>Empecemos tu proyecto</h2>
 
-       <textarea 
-   		 name="message" 
-    	 placeholder="Cuéntanos sobre tu proyecto..."
-   		 required
-  	   ></textarea>
+    <form 
+      id="contact-form"
+      class="contact-form"
+      action="#"
+      method="POST"
+    >
+      <input 
+        type="text" 
+        name="name" 
+        placeholder="Nombre Completo" 
+        required
+      >
 
-        <button type="submit" class="btn-primary">Enviar mensaje</button>
-	</form>
+      <input 
+        type="email" 
+        name="email" 
+        placeholder="Email" 
+        required
+      >
 
-	</div>
-</section> 
+      <input 
+        type="text" 
+        name="services" 
+        placeholder="Tipo de servicio (ej. Página web + Ads)"
+      >
+
+      <textarea 
+        name="message" 
+        placeholder="Cuéntanos sobre tu proyecto..."
+        required
+      ></textarea>
+
+      <button type="submit" class="btn-primary">Enviar mensaje</button>
+
+      <!-- Mensaje de estado -->
+      <p id="form-status" style="margin-top:1rem; color:#9effc2; font-size:.95rem;"></p>
+    </form>
+
+  </div>
+</section>
 
     <!-- FOOTER CON REDES SOCIALES DORADAS -->
 <footer class="footer">
@@ -906,6 +917,35 @@ window.addEventListener('scroll', () => {
 	document.body.style.opacity = "1";
   });
     </script>
+<script>
+  // URL de tu Web App de Apps Script
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwybWVpDAlWjvD-uJoC4Cn0-u3lJujVcBPxDjhdGUf_hPhL9Y1stbEUFFO1qxH10ayA0A/exec";
+
+  const form   = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // ❌ evita que el navegador navegue a script.google.com
+
+    status.textContent = "Enviando mensaje...";
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: new FormData(form),
+      mode: "no-cors" // enviamos sin preocuparnos por leer la respuesta
+    })
+    .then(() => {
+      form.reset();
+      status.textContent = "¡Gracias! Tu mensaje fue enviado correctamente.";
+    })
+    .catch((error) => {
+      console.error("Error!", error);
+      status.textContent = "Ocurrió un error al enviar. Intenta nuevamente.";
+    });
+  });
+</script>
+
 </body>
 
 </html>
+
